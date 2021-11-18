@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelCode" Type="int" Nullable="false" />
+          <Property Name="configurationCode" Type="int" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="int" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="int" Nullable="false" />
+          <Property Name="configuration" Type="nvarchar(max)" />
+          <Property Name="exteriorcolor" Type="nvarchar(max)" />
+          <Property Name="interiorcolor" Type="nvarchar(max)" />
+          <Property Name="model" Type="nvarchar(max)" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="VIN" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="engineNo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarConfiguration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarPart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="carmodelCode" Type="int" Nullable="false" />
+          <Property Name="carmodel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="qty" Type="int" Nullable="false" />
+          <Property Name="unitprice" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="phonenumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="identificationNo" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DMSUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExteriorColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InteriorColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NVDO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelCode" Type="int" Nullable="false" />
+          <Property Name="configurationCode" Type="int" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="int" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="int" Nullable="false" />
+          <Property Name="configuration" Type="nvarchar(max)" />
+          <Property Name="exteriorcolor" Type="nvarchar(max)" />
+          <Property Name="interiorcolor" Type="nvarchar(max)" />
+          <Property Name="model" Type="nvarchar(max)" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="customerId" Type="int" Nullable="false" />
+          <Property Name="customerName" Type="nvarchar(max)" />
+          <Property Name="nvso" Type="int" Nullable="false" />
+          <Property Name="vehicleId" Type="int" />
+          <Property Name="deliveryDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NVSO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelCode" Type="int" Nullable="false" />
+          <Property Name="configurationCode" Type="int" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="int" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="int" Nullable="false" />
+          <Property Name="configuration" Type="nvarchar(max)" />
+          <Property Name="exteriorcolor" Type="nvarchar(max)" />
+          <Property Name="interiorcolor" Type="nvarchar(max)" />
+          <Property Name="model" Type="nvarchar(max)" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="customerId" Type="int" Nullable="false" />
+          <Property Name="customerName" Type="nvarchar(max)" />
+          <Property Name="nvsq" Type="int" Nullable="false" />
+          <Property Name="contractDate" Type="datetime" Nullable="false" />
+          <Property Name="totalamount" Type="bigint" Nullable="false" />
+          <Property Name="discount" Type="bigint" Nullable="false" />
+          <Property Name="vehicleamount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NVSQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="modelCode" Type="int" Nullable="false" />
+          <Property Name="configurationCode" Type="int" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="int" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="int" Nullable="false" />
+          <Property Name="configuration" Type="nvarchar(max)" />
+          <Property Name="exteriorcolor" Type="nvarchar(max)" />
+          <Property Name="interiorcolor" Type="nvarchar(max)" />
+          <Property Name="model" Type="nvarchar(max)" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="customerId" Type="int" Nullable="false" />
+          <Property Name="customerName" Type="nvarchar(max)" />
+          <Property Name="nvsq" Type="int" Nullable="false" />
+          <Property Name="totalamount" Type="bigint" Nullable="false" />
+          <Property Name="discount" Type="bigint" Nullable="false" />
+          <Property Name="vehicleamount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowroomInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="representative" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="bank" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="accountno" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DMSModelStoreContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarConfiguration" EntityType="Self.CarConfiguration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarModel" EntityType="Self.CarModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarPart" EntityType="Self.CarPart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DMSUsers" EntityType="Self.DMSUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExteriorColor" EntityType="Self.ExteriorColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InteriorColor" EntityType="Self.InteriorColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVDO" EntityType="Self.NVDO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVSO" EntityType="Self.NVSO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NVSQ" EntityType="Self.NVSQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShowroomInformation" EntityType="Self.ShowroomInformation" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="DMSModel.Car" />
+          <EntitySet Name="CarConfigurations" EntityType="DMSModel.CarConfiguration" />
+          <EntitySet Name="CarModels" EntityType="DMSModel.CarModel" />
+          <EntitySet Name="CarParts" EntityType="DMSModel.CarPart" />
+          <EntitySet Name="Customers" EntityType="DMSModel.Customer" />
+          <EntitySet Name="ExteriorColors" EntityType="DMSModel.ExteriorColor" />
+          <EntitySet Name="InteriorColors" EntityType="DMSModel.InteriorColor" />
+          <EntitySet Name="NVDOes" EntityType="DMSModel.NVDO" />
+          <EntitySet Name="NVSOes" EntityType="DMSModel.NVSO" />
+          <EntitySet Name="NVSQs" EntityType="DMSModel.NVSQ" />
+          <EntitySet Name="Roles" EntityType="DMSModel.Role" />
+          <EntitySet Name="ShowroomInformations" EntityType="DMSModel.ShowroomInformation" />
+          <EntitySet Name="DMSUsers" EntityType="DMSModel.DMSUser" />
+        </EntityContainer>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelCode" Type="Int32" Nullable="false" />
+          <Property Name="configurationCode" Type="Int32" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="configuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="exteriorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="interiorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="VIN" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="engineNo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarConfiguration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CarPart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="carmodelCode" Type="Int32" Nullable="false" />
+          <Property Name="carmodel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" Nullable="false" />
+          <Property Name="unitprice" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phonenumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="identificationNo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ExteriorColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InteriorColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NVDO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelCode" Type="Int32" Nullable="false" />
+          <Property Name="configurationCode" Type="Int32" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="configuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="exteriorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="interiorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <Property Name="customerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nvso" Type="Int32" Nullable="false" />
+          <Property Name="vehicleId" Type="Int32" />
+          <Property Name="deliveryDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="NVSO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelCode" Type="Int32" Nullable="false" />
+          <Property Name="configurationCode" Type="Int32" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="configuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="exteriorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="interiorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <Property Name="customerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nvsq" Type="Int32" Nullable="false" />
+          <Property Name="contractDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="totalamount" Type="Int64" Nullable="false" />
+          <Property Name="discount" Type="Int64" Nullable="false" />
+          <Property Name="vehicleamount" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NVSQ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modelCode" Type="Int32" Nullable="false" />
+          <Property Name="configurationCode" Type="Int32" Nullable="false" />
+          <Property Name="exteriorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="interiorcolorCode" Type="Int32" Nullable="false" />
+          <Property Name="configuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="exteriorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="interiorcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <Property Name="customerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nvsq1" Type="Int32" Nullable="false" />
+          <Property Name="totalamount" Type="Int64" Nullable="false" />
+          <Property Name="discount" Type="Int64" Nullable="false" />
+          <Property Name="vehicleamount" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShowroomInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyname" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="representative" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bank" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="accountno" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DMSUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DMSModelStoreContainer" CdmEntityContainer="DMSEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="DMSModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="engineNo" ColumnName="engineNo" />
+                <ScalarProperty Name="VIN" ColumnName="VIN" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="interiorcolor" ColumnName="interiorcolor" />
+                <ScalarProperty Name="exteriorcolor" ColumnName="exteriorcolor" />
+                <ScalarProperty Name="configuration" ColumnName="configuration" />
+                <ScalarProperty Name="interiorcolorCode" ColumnName="interiorcolorCode" />
+                <ScalarProperty Name="exteriorcolorCode" ColumnName="exteriorcolorCode" />
+                <ScalarProperty Name="configurationCode" ColumnName="configurationCode" />
+                <ScalarProperty Name="modelCode" ColumnName="modelCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarConfigurations">
+            <EntityTypeMapping TypeName="DMSModel.CarConfiguration">
+              <MappingFragment StoreEntitySet="CarConfiguration">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarModels">
+            <EntityTypeMapping TypeName="DMSModel.CarModel">
+              <MappingFragment StoreEntitySet="CarModel">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParts">
+            <EntityTypeMapping TypeName="DMSModel.CarPart">
+              <MappingFragment StoreEntitySet="CarPart">
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="carmodel" ColumnName="carmodel" />
+                <ScalarProperty Name="carmodelCode" ColumnName="carmodelCode" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="DMSModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="identificationNo" ColumnName="identificationNo" />
+                <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExteriorColors">
+            <EntityTypeMapping TypeName="DMSModel.ExteriorColor">
+              <MappingFragment StoreEntitySet="ExteriorColor">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InteriorColors">
+            <EntityTypeMapping TypeName="DMSModel.InteriorColor">
+              <MappingFragment StoreEntitySet="InteriorColor">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVDOes">
+            <EntityTypeMapping TypeName="DMSModel.NVDO">
+              <MappingFragment StoreEntitySet="NVDO">
+                <ScalarProperty Name="deliveryDate" ColumnName="deliveryDate" />
+                <ScalarProperty Name="vehicleId" ColumnName="vehicleId" />
+                <ScalarProperty Name="nvso" ColumnName="nvso" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="interiorcolor" ColumnName="interiorcolor" />
+                <ScalarProperty Name="exteriorcolor" ColumnName="exteriorcolor" />
+                <ScalarProperty Name="configuration" ColumnName="configuration" />
+                <ScalarProperty Name="interiorcolorCode" ColumnName="interiorcolorCode" />
+                <ScalarProperty Name="exteriorcolorCode" ColumnName="exteriorcolorCode" />
+                <ScalarProperty Name="configurationCode" ColumnName="configurationCode" />
+                <ScalarProperty Name="modelCode" ColumnName="modelCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVSOes">
+            <EntityTypeMapping TypeName="DMSModel.NVSO">
+              <MappingFragment StoreEntitySet="NVSO">
+                <ScalarProperty Name="vehicleamount" ColumnName="vehicleamount" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="totalamount" ColumnName="totalamount" />
+                <ScalarProperty Name="contractDate" ColumnName="contractDate" />
+                <ScalarProperty Name="nvsq" ColumnName="nvsq" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="interiorcolor" ColumnName="interiorcolor" />
+                <ScalarProperty Name="exteriorcolor" ColumnName="exteriorcolor" />
+                <ScalarProperty Name="configuration" ColumnName="configuration" />
+                <ScalarProperty Name="interiorcolorCode" ColumnName="interiorcolorCode" />
+                <ScalarProperty Name="exteriorcolorCode" ColumnName="exteriorcolorCode" />
+                <ScalarProperty Name="configurationCode" ColumnName="configurationCode" />
+                <ScalarProperty Name="modelCode" ColumnName="modelCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NVSQs">
+            <EntityTypeMapping TypeName="DMSModel.NVSQ">
+              <MappingFragment StoreEntitySet="NVSQ">
+                <ScalarProperty Name="vehicleamount" ColumnName="vehicleamount" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="totalamount" ColumnName="totalamount" />
+                <ScalarProperty Name="nvsq1" ColumnName="nvsq" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="interiorcolor" ColumnName="interiorcolor" />
+                <ScalarProperty Name="exteriorcolor" ColumnName="exteriorcolor" />
+                <ScalarProperty Name="configuration" ColumnName="configuration" />
+                <ScalarProperty Name="interiorcolorCode" ColumnName="interiorcolorCode" />
+                <ScalarProperty Name="exteriorcolorCode" ColumnName="exteriorcolorCode" />
+                <ScalarProperty Name="configurationCode" ColumnName="configurationCode" />
+                <ScalarProperty Name="modelCode" ColumnName="modelCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DMSModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowroomInformations">
+            <EntityTypeMapping TypeName="DMSModel.ShowroomInformation">
+              <MappingFragment StoreEntitySet="ShowroomInformation">
+                <ScalarProperty Name="accountno" ColumnName="accountno" />
+                <ScalarProperty Name="bank" ColumnName="bank" />
+                <ScalarProperty Name="representative" ColumnName="representative" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DMSUsers">
+            <EntityTypeMapping TypeName="DMSModel.DMSUser">
+              <MappingFragment StoreEntitySet="DMSUsers">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

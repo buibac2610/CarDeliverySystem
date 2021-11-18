@@ -1,0 +1,59 @@
+﻿@using Car_Delivery_System.Models
+@using Car_Delivery_System.CommonEntities
+@model ShowroomInformation
+@{
+    ViewBag.Title = "ShowroomInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <h3>Showroom Information</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Showroom Information</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">@Model.companyname</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("UpdateSR", "Showroom", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Id, new { placeholder = "id", @class = "form-control", @required = "required", value = Model.Id, style = "display: none" })
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            @Html.TextBoxFor(m => m.companyname, new { placeholder = "Name", @class = "form-control", @required = "required", value = Model.companyname })
+                        </div>
+                        <div class="form-group">
+                            <label for="Address">Address</label>
+                            @Html.TextBoxFor(m => m.address, new { placeholder = "Address", @class = "form-control", @required = "required", value = Model.address })
+                        </div>
+                        <div class="form-group">
+                            <label for="Representative">Representative</label>
+                            @Html.TextBoxFor(m => m.representative, new { placeholder = "Representative", @class = "form-control", @required = "required", value = Model.representative })
+                        </div>
+                        <div class="form-group">
+                            <label for="Bank">Bank</label>
+                            @Html.TextBoxFor(m => m.bank, new { placeholder = "Bank Info", @class = "form-control", value = Model.bank ,@required = "required"})
+                        </div>
+                        <div class="form-group">
+                            <label for="bankacc">Bank Account</label>
+                            @Html.TextBoxFor(m => m.accountno, new { placeholder = "Bank Account", @class = "form-control", @required = "required", value = Model.accountno })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div><!-- Row -->
+</div><!-- Main Wrapper -->

@@ -1,0 +1,191 @@
+﻿@using Car_Delivery_System.Models
+@using Car_Delivery_System.CommonEntities
+@model CarDetailViewModel
+@{
+    ViewBag.Title = "CarDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h3>Car Detail</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Manage Cars</li>
+            <li class="active">Car Detail</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">@Model.currentCar.model - @Model.currentCar.VIN</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("CarDetail", "Warehouse", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.currentCar.Id, new { placeholder = "Name", @class = "form-control", @required = "required", value = Model.currentCar.Id, style = "display: none" })
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Car Model</label>
+                            @{
+                                List<SelectListItem> listModel = new List<SelectListItem>();
+                                foreach (var item in Model.carModels)
+                                {
+                                    if (item.Id == Model.currentCar.modelCode)
+                                    {
+                                        listModel.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listModel.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentCar.modelCode, listModel, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="configuration">Car Configuration</label>
+                            @{
+                                List<SelectListItem> listConfig = new List<SelectListItem>();
+                                foreach (var item in Model.carConfigurations)
+                                {
+                                    if (item.Id == Model.currentCar.configurationCode)
+                                    {
+                                        listConfig.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listConfig.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentCar.configurationCode, listConfig, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exterior">Car Exterior Color</label>
+                            @{
+                                List<SelectListItem> listex = new List<SelectListItem>();
+                                foreach (var item in Model.exteriorColors)
+                                {
+                                    if (item.Id == Model.currentCar.exteriorcolorCode)
+                                    {
+                                        listex.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listex.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentCar.exteriorcolorCode, listex, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interior">Car Interior Color</label>
+                            @{
+                                List<SelectListItem> listIn = new List<SelectListItem>();
+                                foreach (var item in Model.interiorColors)
+                                {
+                                    if (item.Id == Model.currentCar.interiorcolorCode)
+                                    {
+                                        listIn.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listIn.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentCar.interiorcolorCode, listIn, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="VIN">Vehicle Identification Number(VIN)</label>
+                            @Html.TextBoxFor(m => m.currentCar.VIN, new { placeholder = "VIN", @class = "form-control", @required = "required", value = Model.currentCar.VIN })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="engineno">Engine No</label>
+                            @Html.TextBoxFor(m => m.currentCar.engineNo, new { placeholder = "Engine No", @class = "form-control", @required = "required", value = Model.currentCar.engineNo })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            @{
+                                List<SelectListItem> listState = new List<SelectListItem>();
+                                foreach (var item in Constants.WarehouseState)
+                                {
+                                    if (item.Id == Model.currentCar.state)
+                                    {
+                                        listState.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listState.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentCar.state, listState, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%", disabled = "disabled" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="cancel" class="btn btn-primary">Cancel</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div><!-- Row -->
+</div><!-- Main Wrapper -->

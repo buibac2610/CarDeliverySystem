@@ -1,0 +1,71 @@
+﻿@using Car_Delivery_System.Models
+@using Car_Delivery_System.CommonEntities
+@model UserDetailViewModel
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h3>User Detail</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Manage Users</li>
+            <li class="active">User Detail</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">@Model.User.name</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("UserDetail", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.User.Id, new { placeholder = "Name", @class = "form-control", @required = "required", value = Model.User.Id, style = "display: none"  })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            @Html.TextBoxFor(m => m.User.name, new { placeholder = "Name", @class = "form-control", @required = "required", value = Model.User.name })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">User Role</label>
+                            @{
+                                List<SelectListItem> listItems = new List<SelectListItem>();
+                                foreach (var item in Model.RoleList)
+                                {
+                                    if (item.Id == Model.User.role)
+                                    {
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.User.role, listItems, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+                        <button type="save" class="btn btn-primary">Save</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div><!-- Row -->
+</div><!-- Main Wrapper -->

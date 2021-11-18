@@ -1,0 +1,127 @@
+﻿@using Car_Delivery_System.CommonEntities
+@using Car_Delivery_System.Models
+@model  NVSQViewModel
+@{
+    ViewBag.Title = "ManageNVSQ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h3>Manage NVSQ</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Manage NVSQ</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" onclick="window.location= 'NVSQCreate'" class="btn btn-success btn-addon m-b-sm"><i class="fa fa-plus"></i>New</button>
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="example" class="display table" style="width: 100%; cellspacing:0;">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Configuration</th>
+                                    <th>Interior Color</th>
+                                    <th>Exterior Color</th>
+                                    <th>Customer</th>
+                                    <th>State</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Configuration</th>
+                                    <th>Interior Color</th>
+                                    <th>Exterior Color</th>
+                                    <th>Customer</th>
+                                    <th>State</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model.listNVSQ)
+                                    {
+                                        <tr>
+                                            <td>@item.model</td>
+                                            <td>@item.configuration</td>
+                                            <td>@item.interiorcolor</td>
+                                            <td>@item.exteriorcolor</td>
+                                            <td>@item.customerName</td>
+                                            <td>
+                                                @{
+                                                    switch (item.state)
+                                                    {
+                                                        case 0: <button type="button" class="btn btn-default btn-rounded">Open</button>
+                                                            break;
+                                                        case 1:<button type="button" class="btn btn-primary btn-rounded">Converted</button>
+                                                            break;
+                                                        case 2:<button type="button" class="btn btn-danger btn-rounded">On Approval</button>
+                                                            break;
+                                                        case 3:<button type="button" class="btn btn-success btn-rounded">Approved</button>
+                                                            break;
+                                                        case 4:<button type="button" class="btn btn-info btn-rounded">Deliveried</button>
+                                                            break;
+                                                        case 5:<button type="button" class="btn btn-warning btn-rounded">Completed</button>
+                                                            break;
+                                                        default: <button type="button" class="btn btn-default btn-rounded">N/A</button>
+                                                            break;
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td align="center">
+                                                <button type="button" class="btn btn-success" onclick="window.location= 'NVSQDetail/@item.Id'">Edit NVSQ</button>
+                                                <span>  </span>
+                                                <button type="button" onclick="DeleteItem(@item.Id)" class="btn btn-danger">Delete</button>
+                                            </td>
+                                            @*<td><button type="button" class="btn btn-danger">Delete</button></td>*@
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- Row -->
+</div><!-- Main Wrapper -->
+
+<script>
+    function DeleteItem(id) {
+                if (confirm("Are your sure ? ")) {
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("DeleteNVSQ", "NVSQ")',
+                        data : {
+                         id : id
+                        },
+                        datatype: 'JSON',
+                        success: function (Result) {
+                            if (Result == "Success")
+                            {
+                                alert("The item has been deleted..");
+                                window.location.reload();
+                            }else {
+                                alert(Result);
+                            }
+                        },
+                        error: function (Msgerror) {
+                            alert(Msgerror.responseText);
+                        }
+
+
+                    })
+                }
+            }
+</script>

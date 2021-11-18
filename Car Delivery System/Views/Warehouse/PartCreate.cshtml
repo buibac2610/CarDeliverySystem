@@ -1,0 +1,65 @@
+﻿@using Car_Delivery_System.Models
+@using Car_Delivery_System.CommonEntities
+@model PartDetailViewModel
+@{
+    ViewBag.Title = "PartCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h3>New Part</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Manage Part</li>
+            <li class="active">New Part</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">New Part</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("PartCreate", "Warehouse", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+                        <div class="form-group">
+                            <label for="name">Part description</label>
+                            @Html.TextBoxFor(m => m.currentPart.name, new { placeholder = "Part description", @class = "form-control", @required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="qty">Quantity</label>
+                            @Html.TextBoxFor(m => m.currentPart.qty, new { placeholder = "Quantity", @class = "form-control", @required = "required", @type = "number" })
+                        </div>
+                        <div class="form-group">
+                            <label for="unitprice">Unit price</label>
+                            @Html.TextBoxFor(m => m.currentPart.unitprice, new { placeholder = "Unit Price", @class = "form-control", @required = "required", @type = "number" })
+                        </div>
+                        <div class="form-group">
+                            <label for="models">Car Models</label>
+                            @{
+                                List<SelectListItem> listItems = new List<SelectListItem>();
+                                foreach (var item in Model.carModels)
+                                {
+
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = item.name,
+                                        Value = item.Id.ToString()
+                                    });
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.currentPart.carmodelCode, listItems, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div><!-- Row -->
+</div><!-- Main Wrapper -->

@@ -1,0 +1,260 @@
+﻿@using Car_Delivery_System.Models
+@using Car_Delivery_System.CommonEntities
+@model NVSQDetailViewModel
+@{
+    ViewBag.Title = "NVSQDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <h3>NVSQ Detail</h3>
+    <div class="page-breadcrumb">
+        <ol class="breadcrumb">
+            <li><a href="~/Home/Index">Home</a></li>
+            <li class="active">Manage NVSQ</li>
+            <li class="active">NVSQ Detail</li>
+        </ol>
+    </div>
+</div>
+<div id="main-wrapper">
+    @using (Html.BeginForm("EditNVSQ", "NVSQ", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-white">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title">@Model.curNVSQ.model - @Model.curNVSQ.customerName</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        @*@Html.AntiForgeryToken()*@
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.curNVSQ.Id, new { placeholder = "Name", @class = "form-control", @required = "required", value = Model.curNVSQ.Id, style = "display: none" })
+                        </div>
+                        <div class="form-group">
+                            <label for="model">NVSQ Model</label>
+                            @{
+                                List<SelectListItem> listModel = new List<SelectListItem>();
+                                foreach (var item in Model.carModels)
+                                {
+                                    if (item.Id == Model.curNVSQ.modelCode)
+                                    {
+                                        listModel.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listModel.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.modelCode, listModel, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="configuration">NVSQ Configuration</label>
+                            @{
+                                List<SelectListItem> listConfig = new List<SelectListItem>();
+                                foreach (var item in Model.carConfigurations)
+                                {
+                                    if (item.Id == Model.curNVSQ.configurationCode)
+                                    {
+                                        listConfig.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listConfig.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.configurationCode, listConfig, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exterior">NVSQ Exterior Color</label>
+                            @{
+                                List<SelectListItem> listex = new List<SelectListItem>();
+                                foreach (var item in Model.exteriorColors)
+                                {
+                                    if (item.Id == Model.curNVSQ.exteriorcolorCode)
+                                    {
+                                        listex.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listex.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.exteriorcolorCode, listex, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interior">NVSQ Interior Color</label>
+                            @{
+                                List<SelectListItem> listIn = new List<SelectListItem>();
+                                foreach (var item in Model.interiorColors)
+                                {
+                                    if (item.Id == Model.curNVSQ.interiorcolorCode)
+                                    {
+                                        listIn.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listIn.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.interiorcolorCode, listIn, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        @{
+                            if (Model.curNVSQ.state == (int)Constants.OrderStatus.Open)
+                            {
+                                <button onclick="ConvertNVSQ(@Model.curNVSQ.Id)" class="btn btn-success">Convert To NVSO</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div><div class="col-md-6">
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            @{
+                                List<SelectListItem> listState = new List<SelectListItem>();
+                                foreach (var item in Constants.OrderState)
+                                {
+                                    if (item.Id == Model.curNVSQ.state)
+                                    {
+                                        listState.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listState.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.state, listState, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%", disabled = "disabled" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">Customer</label>
+                            @{
+                                List<SelectListItem> listCustomer = new List<SelectListItem>();
+                                foreach (var item in Model.listCus)
+                                {
+                                    if (item.Id == Model.curNVSQ.customerId)
+                                    {
+                                        listCustomer.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString(),
+                                            Selected = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        listCustomer.Add(new SelectListItem
+                                        {
+                                            Text = item.name,
+                                            Value = item.Id.ToString()
+                                        });
+                                    }
+                                }
+                            }
+                            @Html.DropDownListFor(m => m.curNVSQ.customerId, listCustomer, new { @class = "js-states form-control", tabindex = "-1", style = "width: 100%" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Vehicle Amount</label>
+                            @Html.TextBoxFor(m => m.curNVSQ.vehicleamount, new { placeholder = "Vehicle Amount", @class = "form-control", @required = "required", value = Model.curNVSQ.vehicleamount, disabled = "disabled", type = "number" })
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Discount Amount</label>
+                            @Html.TextBoxFor(m => m.curNVSQ.discount, new { placeholder = "Discount amount", @class = "form-control", @required = "required", value = Model.curNVSQ.discount, type = "number" })
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Total Amount</label>
+                            @Html.TextBoxFor(m => m.curNVSQ.totalamount, new { placeholder = "Total Amount", @class = "form-control", @required = "required", value = Model.curNVSQ.totalamount, disabled = "disabled", type = "number" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Row -->}
+</div><!-- Main Wrapper -->
+
+
+
+<script>
+    function ConvertNVSQ(id) {
+                if (confirm("Are your sure ? ")) {
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '@Url.Action("ConvertToNVSO", "NVSQ")',
+                        data : {
+                         id : id
+                        },
+                        datatype: 'JSON',
+                        success: function (Result) {
+                            if (Result != "Error")
+                            {
+                                alert("The NVSO has been created..");
+                                window.location.pathname = Result;
+                            }
+                        },
+                        error: function (Msgerror) {
+                            alert(Msgerror.responseText);
+                        }
+
+
+                    })
+                }
+    };
+
+</script>
